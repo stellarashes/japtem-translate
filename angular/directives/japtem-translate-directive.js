@@ -7,7 +7,8 @@
 				restrict: 'E',
 				controller: 'japtemTranslateController',
 				controllerAs: 'vm',
-				templateUrl: 'templates/translate.html'
+				templateUrl: 'templates/translate.html',
+				scope: true
 			};
 		});
 })();

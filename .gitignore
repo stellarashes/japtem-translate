@@ -49,4 +49,4 @@ crashlytics-build.properties
 
 /components
 /node_modules
-/js
+/js/angular-files.min.js

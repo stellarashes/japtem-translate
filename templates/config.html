@@ -1,0 +1,17 @@
+<div class="japtem-config-container">
+	<label>
+		Language
+		<select ng-model="vm.selectedLang" ng-change="vm.update()">
+			<option
+					ng-repeat="lang in vm.languages"
+					value="{{lang.lang}}"
+			>
+				{{ lang.voiceName }} ({{ lang.lang }})
+			</option>
+		</select>
+	</label>
+	<label>
+		TTS Speed ({{ vm.ttsRate }})
+		<input type="range" min="0.1" max="2" step="0.1" ng-model="vm.ttsRate" ng-change="vm.update()" />
+	</label>
+</div>

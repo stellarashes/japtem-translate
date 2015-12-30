@@ -3,6 +3,12 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 		uglify: {
 			angular: {
+				options: {
+					mangle: false,
+					compress: false,
+					screwIE8: true,
+					beautify: true
+				},
 				src: [
 					'angular/modules/*.js', 'angular/services/*.js', 'angular/controllers/*.js', 'angular/directives/*.js'
 					],

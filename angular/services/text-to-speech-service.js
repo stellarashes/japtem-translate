@@ -4,18 +4,27 @@
 	angular.module('translate.app')
 		.factory('ttsService', TextToSpeechService);
 	
-	TextToSpeechService.$inject = ['configService'];
+	TextToSpeechService.$inject = ['configService', '$q'];
 	
-	function TextToSpeechService(configService) {
+	function TextToSpeechService(configService, $q) {
 		return {
-			speak: speak
+			speak: speak,
+			getVoices: getVoices
 		};
 
 		function speak(phrase) {
-			chrome.tts.getVoices(function(voices) {
-				console.log(voices);
+			configService.getAll().then(function (options) {
+				chrome.tts.speak(phrase, options);
 			});
-			chrome.tts.speak(phrase, configService.getAll());
+		}
+
+		function getVoices() {
+			var deferred = $q.defer();
+			chrome.tts.getVoices(function(voices) {
+				deferred.resolve(voices);
+			});
+
+			return deferred.promise;
 		}
 	}
 })();
