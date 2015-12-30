@@ -1,0 +1,20 @@
+{
+	"name": "Japtem Translate",
+	"description": "Chrome app to facilitate translation process for novels on Japtem",
+	"version": "0.1",
+	"manifest_version": 2,
+	"app": {
+		"background": {
+			"scripts": [
+				"start.js"
+			]
+		}
+	},
+	"icons": {
+		"16": "calculator-16.png",
+		"128": "calculator-128.png"
+	},
+	"permissions":[
+		"tts"
+	]
+}
