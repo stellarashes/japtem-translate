@@ -9,6 +9,7 @@
 	function TextToSpeechService(configService, $q) {
 		return {
 			speak: speak,
+			stop: stop,
 			getVoices: getVoices
 		};
 
@@ -16,6 +17,10 @@
 			configService.getAll().then(function (options) {
 				chrome.tts.speak(phrase, options);
 			});
+		}
+
+		function stop() {
+			chrome.tts.stop();
 		}
 
 		function getVoices() {

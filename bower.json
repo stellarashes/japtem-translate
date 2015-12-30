@@ -19,6 +19,8 @@
   ],
   "dependencies": {
     "angular": "~1.4.8",
-    "lodash": "~3.10.1"
+    "lodash": "~3.10.1",
+    "font-awesome": "~4.5.0",
+    "CSV-JS": "csv-js#~1.1.1"
   }
 }

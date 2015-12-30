@@ -16,6 +16,9 @@
 	},
 	"permissions":[
 		"tts",
-		"storage"
+		"storage",
+		{
+			"fileSystem": ["write", "retainEntries"]
+		}
 	]
 }
