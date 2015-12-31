@@ -8,19 +8,21 @@
 		<button ng-click="vm.create()">Create</button>
 		<button ng-click="vm.cancelCreate()">Cancel</button>
 	</dialog>
-	<a href="#" ng-click="vm.newProject()">
-		<label>
-			<i class="fa fa-file-text"></i> New
-		</label>
-	</a>
+	<button ng-click="vm.newProject()" title="New Project">
+		<i class="fa fa-file-text"></i>
+	</button>
+	<button ng-click="vm.save()" title="Save">
+		<i class="fa fa-floppy-o"></i>
+	</button>
 	<div class="translation-texts-container" ng-show="vm.data">
-		<textarea ng-bind="vm.pre()"></textarea>
+		<textarea ng-bind="vm.pre()" readonly></textarea>
 		<div class="translation-texts-cursor-container">
-			<textarea ng-bind="vm.currentRaw()"></textarea>
-			<a href="#" ng-click="vm.speak()"><i class="fa fa-volume-up"></i></a>
-			<a href="#" ng-click="vm.stop()"><i class="fa fa-volume-off"></i></a>
+			<textarea ng-bind="vm.currentMappedRaw" readonly></textarea>
+			<button ng-click="vm.speak()"><i class="fa fa-volume-up"></i></button>
+			<button ng-click="vm.stop()"><i class="fa fa-volume-off"></i></button>
 			<textarea ng-model="vm.currentTranslation" ng-keyup="vm.currentKeyListener($event)"></textarea>
 		</div>
-		<textarea ng-bind="vm.post()"></textarea>
+		<textarea ng-bind="vm.post()" readonly></textarea>
 	</div>
+
 </div>

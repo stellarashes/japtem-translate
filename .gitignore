@@ -50,3 +50,4 @@ crashlytics-build.properties
 /components
 /node_modules
 /js/angular-files.min.js
+/js/angular-files.min.js.map

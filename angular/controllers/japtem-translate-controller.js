@@ -4,14 +4,16 @@
 	angular.module('translate.app')
 		.controller('japtemTranslateController', JaptemTranslateController);
 
-	JaptemTranslateController.$inject = ['ttsService', 'storageService', 'fileSystemService', 'rawParsingService', 'rawRenderingService'];
+	JaptemTranslateController.$inject = ['ttsService', 'storageService', 'rawParsingService', 'rawRenderingService', 'phraseMappingService'];
 
-	var scrollUp = 33, scrollDown = 34;
+	var scrollUp = 33, scrollDown = 34, autoSaveInterval = 10000;
 
-	function JaptemTranslateController(ttsService, storageService, fileSystemService, rawParsingService, rawRenderingService) {
+	function JaptemTranslateController(ttsService, storageService, rawParsingService, rawRenderingService, phraseMappingService) {
 		var vm = this;
 
 		init();
+
+		vm.lastSaved = Date.now();
 
 		vm.speak = function() {
 			ttsService.speak(vm.currentRaw());
@@ -30,6 +32,8 @@
 		};
 
 		vm.save = function() {
+			vm.lastSaved = Date.now();
+			saveCurrentTranslation();
 			storageService.set({
 				working: vm.data,
 				cursor: vm.cursor
@@ -58,6 +62,13 @@
 			return getPhrase().phrase;
 		};
 
+		function getCurrentMappedRaw() {
+			return phraseMappingService.mapPhrase(vm.currentRaw())
+				.then(function (result) {
+					vm.currentMappedRaw = result;
+				});
+		}
+
 		function getPhrase() {
 			var phrase;
 			if (!vm.data || !(phrase = vm.data[vm.cursor])) {
@@ -75,6 +86,10 @@
 				event.preventDefault();
 				saveCurrentTranslation();
 
+				if (shouldAutoSaveAgain()) {
+					vm.save();
+				}
+
 				var delta = event.keyCode === scrollUp ? -1 : 1;
 				var target = vm.cursor + delta;
 				vm.cursor = ensureTargetRange(target);
@@ -84,6 +99,7 @@
 
 		function update() {
 			vm.currentTranslation = getPhrase().translation;
+			getCurrentMappedRaw();
 		}
 
 		function ensureTargetRange(target) {
@@ -110,6 +126,10 @@
 						update();
 					}
 				});
+		}
+
+		function shouldAutoSaveAgain() {
+			return Date.now() - vm.lastSaved >= autoSaveInterval;
 		}
 
 	}

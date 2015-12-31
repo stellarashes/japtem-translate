@@ -4,10 +4,8 @@ module.exports = function(grunt) {
 		uglify: {
 			angular: {
 				options: {
-					mangle: false,
-					compress: false,
 					screwIE8: true,
-					beautify: true
+					sourceMap: true
 				},
 				src: [
 					'angular/modules/*.js', 'angular/services/*.js', 'angular/controllers/*.js', 'angular/directives/*.js'
