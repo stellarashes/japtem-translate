@@ -26,7 +26,7 @@
 			set: function(key, value) {
 				return init().then(function() {
 					if (typeof(key) === 'object') {
-						options = _.merge(options, key);
+						options = _.assign(options, key);
 					} else {
 						options[key] = value;
 					}
