@@ -26,6 +26,7 @@
 
 # Mongo Explorer plugin:
 # .idea/mongoSettings.xml
+/dist
 
 ## File-based project format:
 *.ipr
@@ -49,5 +50,3 @@ crashlytics-build.properties
 
 /components
 /node_modules
-/js/angular-files.min.js
-/js/angular-files.min.js.map

@@ -10,7 +10,7 @@ module.exports = function(grunt) {
 				src: [
 					'angular/modules/*.js', 'angular/services/*.js', 'angular/controllers/*.js', 'angular/directives/*.js'
 					],
-				dest: "js/angular-files.min.js"
+				dest: "dist/js/angular-files.min.js"
 			}
 		},
 		watch: {
