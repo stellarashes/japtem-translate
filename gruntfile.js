@@ -1,4 +1,7 @@
 module.exports = function(grunt) {
+	var sassPath = [
+		'components/foundation/scss',
+	];
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		uglify: {
@@ -14,13 +17,29 @@ module.exports = function(grunt) {
 			}
 		},
 		watch: {
+			sass: {
+				files: ['scss/*.scss', 'scss/*/*.scss'],
+				tasks: ['sass']
+			},
 			scripts: {
 				files: ['angular/*/*.js'],
 				tasks:['uglify']
 			}
+		},
+		sass: {
+			dev: {
+				options: {
+					style: 'expanded',
+					sourceMap: true,
+					includePaths: sassPath
+				},
+				files: {
+					'dist/css/compiled.css': 'scss/styles.scss'
+				}
+			}
 		}
 	});
 	require('load-grunt-tasks')(grunt);
-	grunt.registerTask('default',['uglify']);
-	grunt.registerTask('production',['uglify']);
+	grunt.registerTask('default',['uglify', 'sass']);
+	grunt.registerTask('production',['uglify', 'sass']);
 };

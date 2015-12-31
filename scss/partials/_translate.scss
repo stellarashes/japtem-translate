@@ -1,0 +1,14 @@
+.japtem-translate-container {
+	height: 100%;
+
+	.translation-texts-container {
+		height: 100%;
+
+		textarea {
+			resize: none;
+		}
+		.pre-text, .post-text {
+			min-height: 20%;
+		}
+	}
+}

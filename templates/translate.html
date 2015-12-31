@@ -15,14 +15,14 @@
 		<i class="fa fa-floppy-o"></i>
 	</button>
 	<div class="translation-texts-container" ng-show="vm.data">
-		<textarea ng-bind="vm.pre()" readonly></textarea>
+		<textarea ng-bind="vm.pre()" class="pre-text" readonly></textarea>
 		<div class="translation-texts-cursor-container">
 			<textarea ng-bind="vm.currentMappedRaw" readonly></textarea>
 			<button ng-click="vm.speak()"><i class="fa fa-volume-up"></i></button>
 			<button ng-click="vm.stop()"><i class="fa fa-volume-off"></i></button>
 			<textarea ng-model="vm.currentTranslation" ng-keyup="vm.currentKeyListener($event)"></textarea>
 		</div>
-		<textarea ng-bind="vm.post()" readonly></textarea>
+		<textarea ng-bind="vm.post()" class="post-text" readonly></textarea>
 	</div>
 
 </div>
