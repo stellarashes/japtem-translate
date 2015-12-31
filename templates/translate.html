@@ -8,21 +8,25 @@
 		<button ng-click="vm.create()">Create</button>
 		<button ng-click="vm.cancelCreate()">Cancel</button>
 	</dialog>
-	<button ng-click="vm.newProject()" title="New Project">
-		<i class="fa fa-file-text"></i>
-	</button>
-	<button ng-click="vm.save()" title="Save">
-		<i class="fa fa-floppy-o"></i>
-	</button>
+	<div class="toolbar-container">
+		<button ng-click="vm.newProject()" title="New Project">
+			<i class="fa fa-file-text"></i>
+		</button>
+		<button ng-click="vm.save()" title="Save">
+			<i class="fa fa-floppy-o"></i>
+		</button>
+		<button ng-click="vm.copyToClipboard()" title="Copy to Clipboard">
+			<i class="fa fa-share"></i>
+		</button>
+	</div>
 	<div class="translation-texts-container" ng-show="vm.data">
 		<textarea ng-bind="vm.pre()" class="pre-text" readonly></textarea>
 		<div class="translation-texts-cursor-container">
 			<textarea ng-bind="vm.currentMappedRaw" readonly></textarea>
 			<button ng-click="vm.speak()"><i class="fa fa-volume-up"></i></button>
 			<button ng-click="vm.stop()"><i class="fa fa-volume-off"></i></button>
-			<textarea ng-model="vm.currentTranslation" ng-keyup="vm.currentKeyListener($event)"></textarea>
+			<textarea ng-model="vm.currentTranslation" ng-keyup="vm.currentKeyListener($event)" id="current-row-translation"></textarea>
 		</div>
 		<textarea ng-bind="vm.post()" class="post-text" readonly></textarea>
 	</div>
-
 </div>

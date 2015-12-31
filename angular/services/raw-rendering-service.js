@@ -16,7 +16,8 @@
 			},
 			getPost: function(data, index) {
 				return renderSlice(data, index + 1);
-			}
+			},
+			getSlice: renderSlice
 		};
 
 		function renderSlice(data, start, end) {

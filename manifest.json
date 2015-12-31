@@ -5,9 +5,7 @@
 	"manifest_version": 2,
 	"app": {
 		"background": {
-			"scripts": [
-				"start.js"
-			]
+			"page": "background.html"
 		}
 	},
 	"icons": {
@@ -19,6 +17,7 @@
 		"storage",
 		{
 			"fileSystem": ["write", "retainEntries"]
-		}
+		},
+		"clipboardWrite"
 	]
 }

@@ -4,11 +4,11 @@
 	angular.module('translate.app')
 		.controller('japtemTranslateController', JaptemTranslateController);
 
-	JaptemTranslateController.$inject = ['ttsService', 'storageService', 'rawParsingService', 'rawRenderingService', 'phraseMappingService'];
+	JaptemTranslateController.$inject = ['ttsService', 'storageService', 'rawParsingService', 'rawRenderingService', 'phraseMappingService', 'clipboardService'];
 
 	var scrollUp = 33, scrollDown = 34, autoSaveInterval = 10000;
 
-	function JaptemTranslateController(ttsService, storageService, rawParsingService, rawRenderingService, phraseMappingService) {
+	function JaptemTranslateController(ttsService, storageService, rawParsingService, rawRenderingService, phraseMappingService, clipboardService) {
 		var vm = this;
 
 		init();
@@ -29,6 +29,7 @@
 			update();
 			vm.save();
 			closeModal();
+			focusInput();
 		};
 
 		vm.save = function() {
@@ -97,6 +98,10 @@
 			}
 		};
 
+		function focusInput() {
+			document.querySelector('#current-row-translation').focus();
+		}
+
 		function update() {
 			vm.currentTranslation = getPhrase().translation;
 			getCurrentMappedRaw();
@@ -124,12 +129,18 @@
 						vm.cursor = data.cursor;
 
 						update();
+						focusInput();
 					}
 				});
 		}
 
 		function shouldAutoSaveAgain() {
 			return Date.now() - vm.lastSaved >= autoSaveInterval;
+		}
+
+		vm.copyToClipboard = function() {
+			var data = rawRenderingService.getSlice(vm.data, 0);
+			clipboardService.copy(data);
 		}
 
 	}
