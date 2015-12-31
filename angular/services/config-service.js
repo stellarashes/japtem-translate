@@ -16,7 +16,11 @@
 		return {
 			get: function(key) {
 				return init().then(function() {
-					return options[key];
+					if (Array.isArray(key)) {
+						return _.pick(options, key);
+					} else {
+						return options[key];
+					}
 				});
 			},
 			set: function(key, value) {

@@ -1,7 +1,26 @@
 <div class="japtem-translate-container">
 	<japtem-config></japtem-config>
-	<label>
-		Text
-		<textarea ng-model="vm.data"></textarea>
-	</label>
+	<dialog id="japtem-new-modal-container">
+		<label>
+			Raw
+			<textarea ng-model="vm.newData"></textarea>
+		</label>
+		<button ng-click="vm.create()">Create</button>
+		<button ng-click="vm.cancelCreate()">Cancel</button>
+	</dialog>
+	<a href="#" ng-click="vm.newProject()">
+		<label>
+			<i class="fa fa-file-text"></i> New
+		</label>
+	</a>
+	<div class="translation-texts-container" ng-show="vm.data">
+		<textarea ng-bind="vm.pre()"></textarea>
+		<div class="translation-texts-cursor-container">
+			<textarea ng-bind="vm.currentRaw()"></textarea>
+			<a href="#" ng-click="vm.speak()"><i class="fa fa-volume-up"></i></a>
+			<a href="#" ng-click="vm.stop()"><i class="fa fa-volume-off"></i></a>
+			<textarea ng-model="vm.currentTranslation" ng-keyup="vm.currentKeyListener($event)"></textarea>
+		</div>
+		<textarea ng-bind="vm.post()"></textarea>
+	</div>
 </div>

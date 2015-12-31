@@ -14,7 +14,7 @@
 		};
 
 		function speak(phrase) {
-			configService.getAll().then(function (options) {
+			configService.get(['lang', 'rate']).then(function (options) {
 				chrome.tts.speak(phrase, options);
 			});
 		}
