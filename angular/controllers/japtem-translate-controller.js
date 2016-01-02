@@ -6,7 +6,7 @@
 
 	JaptemTranslateController.$inject = ['ttsService', 'storageService', 'rawParsingService', 'rawRenderingService', 'phraseMappingService', 'clipboardService', '$timeout', 'maximizeElementService', '$window', 'saveLoadService'];
 
-	var scrollUp = 38, scrollDown = 40, enter = 13;
+	var scrollUp = 33, scrollDown = 34, enter = 13;
 
 	function JaptemTranslateController(ttsService, storageService, rawParsingService, rawRenderingService, phraseMappingService, clipboardService, $timeout, maximizeElementService, $window, saveLoadService) {
 		var vm = this;
