@@ -4,11 +4,11 @@
 	angular.module('translate.app')
 		.controller('japtemTranslateController', JaptemTranslateController);
 
-	JaptemTranslateController.$inject = ['ttsService', 'storageService', 'rawParsingService', 'rawRenderingService', 'phraseMappingService', 'clipboardService', '$timeout'];
+	JaptemTranslateController.$inject = ['ttsService', 'storageService', 'rawParsingService', 'rawRenderingService', 'phraseMappingService', 'clipboardService', '$timeout', 'maximizeElementService', '$scope', '$window'];
 
 	var scrollUp = 38, scrollDown = 40;
 
-	function JaptemTranslateController(ttsService, storageService, rawParsingService, rawRenderingService, phraseMappingService, clipboardService, $timeout) {
+	function JaptemTranslateController(ttsService, storageService, rawParsingService, rawRenderingService, phraseMappingService, clipboardService, $timeout, maximizeElementService, $scope, $window) {
 		var vm = this;
 
 		init();
@@ -41,6 +41,21 @@
 		};
 
 		vm.cancelCreate = closeModal;
+
+		function init() {
+			maximizeElementService.maximize($window, ['.pre-text', '.post-text'], '.japtem-translate-container', '.translation-texts-cursor-container', 50);
+
+			storageService.get(['working', 'cursor'])
+				.then(function (data) {
+					var workingSet = data.working;
+					if (workingSet && Array.isArray(workingSet)) {
+						vm.data = workingSet;
+						vm.cursor = data.cursor;
+
+						update();
+					}
+				});
+		}
 
 		function openModal() {
 			document.querySelector('#japtem-new-modal-container').showModal();
@@ -119,19 +134,6 @@
 			if (vm.currentTranslation) {
 				getPhrase().translation = vm.currentTranslation;
 			}
-		}
-
-		function init() {
-			storageService.get(['working', 'cursor'])
-				.then(function (data) {
-					var workingSet = data.working;
-					if (workingSet && Array.isArray(workingSet)) {
-						vm.data = workingSet;
-						vm.cursor = data.cursor;
-
-						update();
-					}
-				});
 		}
 
 		function shouldAutoSaveAgain() {
