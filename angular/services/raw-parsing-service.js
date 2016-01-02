@@ -11,6 +11,10 @@
 	function RawParsingService() {
 		return {
 			parse: function (text) {
+				var jsonFormat = parseFromJsonData(text);
+				if (jsonFormat) {
+					return jsonFormat;
+				}
 				var assistantFormat = parseFromTranslationAssitant(text);
 				if (assistantFormat) {
 					return assistantFormat;
@@ -100,6 +104,18 @@
 			} else {
 				return null;
 			}
+		}
+
+		function parseFromJsonData(text) {
+			try {
+				if (text[0] === '[' && text.indexOf('paragraphOffset') > -1) {
+					return JSON.parse(text);
+				}
+			} catch (ex) {
+				// do nothing and return null
+			}
+
+			return null;
 		}
 	}
 })();

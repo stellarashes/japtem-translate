@@ -4,11 +4,11 @@
 	angular.module('translate.app')
 		.controller('japtemTranslateController', JaptemTranslateController);
 
-	JaptemTranslateController.$inject = ['ttsService', 'storageService', 'rawParsingService', 'rawRenderingService', 'phraseMappingService', 'clipboardService', '$timeout', 'maximizeElementService', '$window', 'fileSystemService'];
+	JaptemTranslateController.$inject = ['ttsService', 'storageService', 'rawParsingService', 'rawRenderingService', 'phraseMappingService', 'clipboardService', '$timeout', 'maximizeElementService', '$window', 'saveLoadService'];
 
 	var scrollUp = 38, scrollDown = 40, enter = 13;
 
-	function JaptemTranslateController(ttsService, storageService, rawParsingService, rawRenderingService, phraseMappingService, clipboardService, $timeout, maximizeElementService, $window, fileSystemService) {
+	function JaptemTranslateController(ttsService, storageService, rawParsingService, rawRenderingService, phraseMappingService, clipboardService, $timeout, maximizeElementService, $window, saveLoadService) {
 		var vm = this;
 
 		init();
@@ -33,6 +33,11 @@
 		vm.create = function() {
 			onNewProject(vm.newData);
 			closeModal();
+		};
+
+		vm.saveToFile = function() {
+			vm.save();
+			return saveLoadService.save(vm.data);
 		};
 
 		vm.save = function() {
@@ -123,10 +128,8 @@
 		};
 
 		vm.openFile = function() {
-			fileSystemService.readTextFile()
-				.then(function (result) {
-					onNewProject(result.data);
-				});
+			saveLoadService.load()
+				.then(onNewProject);
 		};
 
 		function update() {
