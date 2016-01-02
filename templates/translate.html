@@ -1,6 +1,6 @@
 <div class="japtem-translate-container">
 	<header>
-		<a href="#config"><i class="fa fa-bars"></i></a>
+		<a href="#config" ng-click="vm.save()"><i class="fa fa-bars"></i></a>
 	</header>
 	<dialog id="japtem-new-modal-container">
 		<label>
@@ -13,6 +13,9 @@
 	<div class="toolbar-container">
 		<button ng-click="vm.newProject()" title="New Project">
 			<i class="fa fa-file-text"></i>
+		</button>
+		<button ng-click="vm.openFile()" title="Open">
+			<i class="fa fa-folder-open"></i>
 		</button>
 		<button ng-click="vm.save()" title="Save">
 			<i class="fa fa-floppy-o"></i>

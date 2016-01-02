@@ -4,11 +4,11 @@
 	angular.module('translate.app')
 		.controller('japtemTranslateController', JaptemTranslateController);
 
-	JaptemTranslateController.$inject = ['ttsService', 'storageService', 'rawParsingService', 'rawRenderingService', 'phraseMappingService', 'clipboardService', '$timeout', 'maximizeElementService', '$scope', '$window'];
+	JaptemTranslateController.$inject = ['ttsService', 'storageService', 'rawParsingService', 'rawRenderingService', 'phraseMappingService', 'clipboardService', '$timeout', 'maximizeElementService', '$window', 'fileSystemService'];
 
 	var scrollUp = 38, scrollDown = 40, enter = 13;
 
-	function JaptemTranslateController(ttsService, storageService, rawParsingService, rawRenderingService, phraseMappingService, clipboardService, $timeout, maximizeElementService, $scope, $window) {
+	function JaptemTranslateController(ttsService, storageService, rawParsingService, rawRenderingService, phraseMappingService, clipboardService, $timeout, maximizeElementService, $window, fileSystemService) {
 		var vm = this;
 
 		init();
@@ -23,11 +23,15 @@
 
 		vm.newProject = openModal;
 
-		vm.create = function() {
-			vm.data = rawParsingService.parse(vm.newData);
+		function onNewProject(data) {
+			vm.data = rawParsingService.parse(data);
 			vm.cursor = 0;
 			update();
 			vm.save();
+		}
+
+		vm.create = function() {
+			onNewProject(vm.newData);
 			closeModal();
 		};
 
@@ -116,6 +120,13 @@
 					vm.save();
 				}
 			}
+		};
+
+		vm.openFile = function() {
+			fileSystemService.readTextFile()
+				.then(function (result) {
+					onNewProject(result.data);
+				});
 		};
 
 		function update() {

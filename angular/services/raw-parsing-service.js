@@ -11,6 +11,10 @@
 	function RawParsingService() {
 		return {
 			parse: function (text) {
+				var assistantFormat = parseFromTranslationAssitant(text);
+				if (assistantFormat) {
+					return assistantFormat;
+				}
 				return parsePlainText(text);
 			}
 		};
@@ -66,7 +70,36 @@
 		}
 
 		function parseFromTranslationAssitant(text) {
+			var separator = '---SEPERATOR---';
+			var separatorIndex;
+			if (text[0] === '%' && (separatorIndex = text.indexOf(separator)) > -1) {
+				var raw = text.substr(0, separatorIndex).split(/\r?\n/),
+					translated = text.substr(separatorIndex + separator.length).trim().split(/\r?\n/);
 
+				var phrases = [];
+
+				var paragraphIndex = 0;
+				for (var i = 0; i < raw.length; i++) {
+					if (raw[i][0] === '%') {
+						paragraphIndex++;
+					}
+
+					var phrase = raw[i].substr(1).trim();
+					if (phrase === '') {
+						continue;
+					}
+
+					phrases.push({
+						phrase: phrase,
+						paragraphOffset: i,
+						translation: (i < translated.length ? translated[i] : '')
+					});
+				}
+
+				return phrases;
+			} else {
+				return null;
+			}
 		}
 	}
 })();
