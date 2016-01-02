@@ -4,9 +4,9 @@
 	angular.module('translate.app')
 		.controller('japtemConfigController', JaptemConfigController);
 
-	JaptemConfigController.$inject = ['ttsService', 'configService', 'fileSystemService'];
+	JaptemConfigController.$inject = ['ttsService', 'configService', 'fileSystemService', '$timeout'];
 
-	function JaptemConfigController(ttsService, configService, fileSystemService) {
+	function JaptemConfigController(ttsService, configService, fileSystemService, $timeout) {
 		var vm = this;
 
 		vm.languages = [];
@@ -33,6 +33,11 @@
 			.then(function (result) {
 				vm.profile = result;
 			});
+
+		var element = document.querySelector('.profile-edit-container');
+		$timeout(function() {
+			element.scrollTop = element.scrollHeight;
+		});
 
 		function processVoices(voices) {
 			vm.languages = voices.filter(filter);
@@ -78,8 +83,6 @@
 		}
 
 		function addMapRow() {
-			console.log(vm.mapRowAddKey);
-			console.log(vm.mapRowAddValue);
 			if (!vm.mapRowAddKey || !vm.mapRowAddValue) {
 				return;
 			}
@@ -88,11 +91,8 @@
 				value: vm.mapRowAddValue
 			});
 			vm.update();
-			console.log(vm.profile);
 			vm.mapRowAddKey = '';
 			vm.mapRowAddValue = '';
-			console.log(vm.mapRowAddKey);
-			console.log(vm.mapRowAddValue);
 		}
 
 		function removeRow(index) {
