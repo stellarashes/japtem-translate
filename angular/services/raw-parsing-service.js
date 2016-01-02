@@ -6,7 +6,7 @@
 
 	RawParsingService.$inject = [];
 
-	var delimiter = '。';
+	var delimiter = ['。', '\r', '\n'];
 
 	function RawParsingService() {
 		return {
@@ -24,14 +24,13 @@
 					continue;
 				}
 
-				var subphrases = paragraph.split(delimiter);
+				var subphrases = splitByDelimiter(paragraph, delimiter);
 				for (var j = 0; j < subphrases.length; j++) {
-					var phrase = subphrases[j];
-					if (phrase.trim() === '') {
+					var phrase = subphrases[j].trim();
+					if (phrase === '') {
 						continue;
-					} else if (j < subphrases.length - 1) {
-						phrase += delimiter;
 					}
+
 					phrases.push({
 						phrase: phrase,
 						paragraphOffset: i,
@@ -41,6 +40,29 @@
 			}
 
 			return phrases;
+		}
+
+		/**
+		 * Split the haystack without removing the delimiter
+		 * @param haystack
+		 * @param delimiter
+		 */
+		function splitByDelimiter(haystack, delimiter) {
+			var regex;
+			if (Array.isArray(delimiter)) {
+				var escaped = delimiter.map(function (element) {
+					return element.replace('\\', '\\\\');
+				});
+				regex = new RegExp('(.*?[' + escaped.join('') + '])', 'g');
+			} else {
+				regex = new RegExp('(.*?' + delimiter + ')');
+			}
+
+			var matches = haystack.match(regex);
+			if (!matches) {
+				return [haystack];
+			}
+			return matches;
 		}
 
 		function parseFromTranslationAssitant(text) {
