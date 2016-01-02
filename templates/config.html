@@ -1,4 +1,7 @@
 <div class="japtem-config-container">
+	<header>
+		<a href="#"><i class="fa fa-times"></i></a>
+	</header>
 	<label>
 		Language
 		<select ng-model="vm.selectedLang" ng-change="vm.update()">
@@ -11,11 +14,25 @@
 		</select>
 	</label>
 	<label>
-		<input type="range" min="0.1" max="2" step="0.1" ng-model="vm.ttsRate" ng-change="vm.update()" />
+		<input type="range" min="0.1" max="2" step="0.1" ng-model="vm.ttsRate" ng-change="vm.update()"/>
 		TTS Speed ({{ vm.ttsRate }})
 	</label>
 	<label>
 		<button ng-click="vm.openProfile()"><i class="fa fa-language"></i></button>
 		<span ng-show="vm.profile">{{vm.profile.name}}</span>
 	</label>
+	<div class="profile-edit-container" ng-show="vm.profile && vm.profile.translations">
+		<ul>
+			<li ng-repeat="mapRow in vm.profile.translations track by $index">
+				<input class="phrase-map-row-key" ng-value="mapRow.key" readonly />
+				<input class="phrase-map-row-value" ng-value="mapRow.value" readonly />
+				<a ng-click="vm.removeRow($index)"><i class="fa fa-minus-circle"></i></a>
+			</li>
+			<li>
+				<input class="phrase-map-row-key" ng-model="vm.mapRowAddKey" />
+				<input class="phrase-map-row-value" ng-model="vm.mapRowAddValue" />
+				<a ng-click="vm.addMapRow()"><i class="fa fa-plus-circle"></i></a>
+			</li>
+		</ul>
+	</div>
 </div>

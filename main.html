@@ -3,13 +3,15 @@
 <head>
 	<meta charset="UTF-8">
 	<script src="components/angular/angular.min.js"></script>
+	<script src="components/angular-route/angular-route.min.js"></script>
 	<script src="components/lodash/lodash.min.js"></script>
 	<script src="components/CSV-JS/csv.js"></script>
 	<script src="dist/js/angular-files.min.js"></script>
-	<link rel="stylesheet" href="components/font-awesome/css/font-awesome.min.css" />
-	<link rel="stylesheet" href="dist/css/compiled.css" />
+	<link rel="stylesheet" href="components/font-awesome/css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="dist/css/compiled.css"/>
 </head>
 <body ng-app="translate.app">
-<japtem-translate></japtem-translate>
+<div id="content" ng-view>
+</div>
 </body>
 </html>

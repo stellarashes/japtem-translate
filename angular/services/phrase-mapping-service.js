@@ -12,7 +12,6 @@
 			mapPhrase: function (phrase) {
 				return configService.get('profile')
 					.then(function (profile) {
-						console.log(profile);
 						if (profile && Array.isArray(profile.translations)) {
 							return profile.translations.reduce(function (prev, cur) {
 								return prev.replace(cur.key, cur.value);

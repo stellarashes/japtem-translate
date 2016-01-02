@@ -7,6 +7,7 @@ module.exports = function(grunt) {
 		uglify: {
 			angular: {
 				options: {
+					mangle: false,
 					screwIE8: true,
 					sourceMap: true
 				},

@@ -10,8 +10,8 @@
 		return {
 			copy: function (text) {
 				var input = document.createElement('textarea');
-				var container = document.querySelector('japtem-translate');
-				document.body.insertBefore(input, container);
+				var firstChild = document.body.firstChild;
+				document.body.insertBefore(input, firstChild);
 				input.textContent = text;
 				input.focus();
 				input.select();

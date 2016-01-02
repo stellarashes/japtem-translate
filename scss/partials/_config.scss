@@ -1,0 +1,23 @@
+.japtem-config-container {
+	height: 100%;
+
+	.profile-edit-container {
+		overflow: scroll;
+		overflow-x: hidden;
+		max-height: 50%;
+
+		ul {
+			list-style: none;
+
+			li {
+				input {
+					background-color: $background-color;
+					display: inline-block;
+					width: 40%;
+				}
+			}
+		}
+	}
+
+
+}

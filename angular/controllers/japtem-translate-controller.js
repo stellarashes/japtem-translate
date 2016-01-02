@@ -86,14 +86,14 @@
 				event.preventDefault();
 				saveCurrentTranslation();
 
-				if (shouldAutoSaveAgain()) {
-					vm.save();
-				}
-
 				var delta = event.keyCode === scrollUp ? -1 : 1;
 				var target = vm.cursor + delta;
 				vm.cursor = ensureTargetRange(target);
 				update();
+
+				if (shouldAutoSaveAgain()) {
+					vm.save();
+				}
 			}
 		};
 

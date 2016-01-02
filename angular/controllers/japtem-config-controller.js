@@ -13,6 +13,8 @@
 		vm.update = update;
 		vm.openProfile = openProfile;
 		vm.profile = null;
+		vm.addMapRow = addMapRow;
+		vm.removeRow = removeRow;
 
 		ttsService.getVoices()
 			.then(processVoices);
@@ -73,6 +75,29 @@
 
 					vm.update();
 				});
+		}
+
+		function addMapRow() {
+			console.log(vm.mapRowAddKey);
+			console.log(vm.mapRowAddValue);
+			if (!vm.mapRowAddKey || !vm.mapRowAddValue) {
+				return;
+			}
+			vm.profile.translations.push({
+				key: vm.mapRowAddKey,
+				value: vm.mapRowAddValue
+			});
+			vm.update();
+			console.log(vm.profile);
+			vm.mapRowAddKey = '';
+			vm.mapRowAddValue = '';
+			console.log(vm.mapRowAddKey);
+			console.log(vm.mapRowAddValue);
+		}
+
+		function removeRow(index) {
+			vm.profile.translations.splice(index, 1);
+			vm.update();
 		}
 	}
 })();
