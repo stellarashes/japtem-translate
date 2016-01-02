@@ -34,20 +34,26 @@
 
 				var subphrases = splitByDelimiter(paragraph, delimiter);
 				for (var j = 0; j < subphrases.length; j++) {
-					var phrase = subphrases[j].trim();
-					if (phrase === '') {
-						continue;
-					}
-
-					phrases.push({
-						phrase: phrase,
-						paragraphOffset: i,
-						translation: ''
-					});
+					processPhrase(phrases, subphrases[j], i, '');
 				}
 			}
 
 			return phrases;
+		}
+
+		function processPhrase(phrases, rawPhrase, paragraphIndex, translation) {
+			var endsWithNewLine = rawPhrase[rawPhrase.length - 1] === '\n';
+			var phrase = rawPhrase.trim();
+			if (phrase === '') {
+				return;
+			}
+
+			phrases.push({
+				phrase: phrase,
+				paragraphOffset: paragraphIndex,
+				translation: translation,
+				endsWithNewLine: endsWithNewLine
+			});
 		}
 
 		/**
@@ -88,16 +94,8 @@
 						paragraphIndex++;
 					}
 
-					var phrase = raw[i].substr(1).trim();
-					if (phrase === '') {
-						continue;
-					}
-
-					phrases.push({
-						phrase: phrase,
-						paragraphOffset: i,
-						translation: (i < translated.length ? translated[i] : '')
-					});
+					var rawPhrase = raw[i].substr(1);
+					processPhrase(phrases, rawPhrase, paragraphIndex, i < translated.length ? translated[i] : '');
 				}
 
 				return phrases;

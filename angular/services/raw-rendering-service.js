@@ -50,7 +50,11 @@
 
 		function renderParagraph(paragraph) {
 			var output = paragraph.reduce(function(prev, cur) {
-				return prev + rawDelimiter + cur.phrase;
+				var phrase = prev + rawDelimiter + cur.phrase;
+				if (cur.endsWithNewLine) {
+					phrase += '\n';
+				}
+				return phrase;
 			}, '');
 			var translatedPhrases = paragraph.reduce(function(prev, cur) {
 				return prev + translatedDelimiter + cur.translation;
