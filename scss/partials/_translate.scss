@@ -5,6 +5,7 @@
 		height: 100%;
 
 		textarea {
+			background-color: $background-color;
 			resize: none;
 		}
 
@@ -12,7 +13,7 @@
 			min-height: 20%;
 		}
 
-		.current-text {
+		.current-text, #current-row-translation {
 			height: 75px;
 		}
 	}

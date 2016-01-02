@@ -6,7 +6,7 @@
 
 	JaptemTranslateController.$inject = ['ttsService', 'storageService', 'rawParsingService', 'rawRenderingService', 'phraseMappingService', 'clipboardService', '$timeout', 'maximizeElementService', '$scope', '$window'];
 
-	var scrollUp = 38, scrollDown = 40;
+	var scrollUp = 38, scrollDown = 40, enter = 13;
 
 	function JaptemTranslateController(ttsService, storageService, rawParsingService, rawRenderingService, phraseMappingService, clipboardService, $timeout, maximizeElementService, $scope, $window) {
 		var vm = this;
@@ -97,7 +97,7 @@
 		}
 
 		vm.currentKeyListener = function(event) {
-			if (event.keyCode === scrollUp || event.keyCode === scrollDown) {
+			if (event.keyCode === scrollUp || event.keyCode === scrollDown || event.keyCode === enter) {
 				event.preventDefault();
 				saveCurrentTranslation();
 
