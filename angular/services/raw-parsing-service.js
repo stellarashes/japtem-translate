@@ -29,9 +29,11 @@
 					var phrase = subphrases[j];
 					if (phrase.trim() === '') {
 						continue;
+					} else if (j < subphrases.length - 1) {
+						phrase += delimiter;
 					}
 					phrases.push({
-						phrase: phrase + delimiter,
+						phrase: phrase,
 						paragraphOffset: i,
 						translation: ''
 					});
