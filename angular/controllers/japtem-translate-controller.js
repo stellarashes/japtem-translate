@@ -81,7 +81,13 @@
 			return phraseMappingService.mapPhrase(vm.currentRaw())
 				.then(function (result) {
 					vm.currentMappedRaw = result;
+					clipboardService.copy(vm.currentMappedRaw);
+					focusInput();
 				});
+		}
+
+		function focusInput() {
+			document.querySelector('#current-row-translation').focus();
 		}
 
 		function getPhrase() {
