@@ -13,7 +13,9 @@
 			})
 
 			.when('/config', {
-				templateUrl: 'pages/config-page.html'
+				templateUrl: 'pages/config-page.html',
+				controller: 'configTabsController',
+				controllerAs: 'vm'
 			})
 		;
 	}
