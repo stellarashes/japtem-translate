@@ -67,9 +67,9 @@
 				var escaped = delimiter.map(function (element) {
 					return element.replace('\\', '\\\\');
 				});
-				regex = new RegExp('(.*?[' + escaped.join('') + '])', 'g');
+				regex = new RegExp('(.+?[' + escaped.join('') + ']|.+?$)', 'g');
 			} else {
-				regex = new RegExp('(.*?' + delimiter + ')');
+				regex = new RegExp('(.+?' + delimiter + '|.+?$)');
 			}
 
 			var matches = haystack.match(regex);
