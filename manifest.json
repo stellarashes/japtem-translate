@@ -18,6 +18,7 @@
 		{
 			"fileSystem": ["write", "retainEntries"]
 		},
-		"clipboardWrite"
+		"clipboardWrite",
+		"alwaysOnTopWindows"
 	]
 }

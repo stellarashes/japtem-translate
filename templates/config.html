@@ -19,6 +19,10 @@
 		Skip raws when copying
 	</label>
 	<label>
+		<input type="checkbox" ng-model="vm.alwaysOnTop" ng-change="vm.update()" />
+		Always on top
+	</label>
+	<label>
 		<button ng-click="vm.openProfile()" title="Open Profile"><i class="fa fa-language"></i></button>
 		<span ng-show="vm.profile">{{vm.profile.name}}</span>
 		<button ng-click="vm.saveProfile()" title="Save Profile"><i class="fa fa-floppy-o"></i></button>
