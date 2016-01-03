@@ -9,7 +9,7 @@
 	function SaveLoadService(fs) {
 		return {
 			save: function(data) {
-				return fs.saveToFile(data);
+				return fs.saveToFile(JSON.stringify(data));
 			},
 
 			load: function() {

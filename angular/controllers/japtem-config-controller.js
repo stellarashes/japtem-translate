@@ -4,14 +4,15 @@
 	angular.module('translate.app')
 		.controller('japtemConfigController', JaptemConfigController);
 
-	JaptemConfigController.$inject = ['ttsService', 'configService', 'fileSystemService', '$timeout'];
+	JaptemConfigController.$inject = ['ttsService', 'configService', 'profileService', '$timeout'];
 
-	function JaptemConfigController(ttsService, configService, fileSystemService, $timeout) {
+	function JaptemConfigController(ttsService, configService, profileService, $timeout) {
 		var vm = this;
 
 		vm.languages = [];
 		vm.update = update;
 		vm.openProfile = openProfile;
+		vm.saveProfile = saveProfile;
 		vm.profile = null;
 		vm.addMapRow = addMapRow;
 		vm.removeRow = removeRow;
@@ -23,7 +24,10 @@
 			.then(function (result) {
 				vm.selectedLang = result.lang || 'ja-JP';
 				vm.ttsRate = result.rate || 0.8;
-				vm.profile = result.profile;
+				vm.profile = result.profile || {
+						name: 'New',
+						translations: []
+					};
 				vm.skipRaws = result.skipRaws;
 				if (!result || !Object.keys(result).length) {
 					update();
@@ -53,30 +57,15 @@
 		}
 
 		function openProfile() {
-			fileSystemService.readTextFile()
-				.then(function (file) {
-					var parsed = CSV.parse(file.data);
-					var translations = [];
-					for (var i = 0; i < parsed.length; i++) {
-						var obj = parsed[i];
-						if (!Array.isArray(obj) || obj.length < 2) {
-							continue;
-						}
-
-						translations.push({
-							key: obj[0],
-							value: obj[1]
-						});
-					}
-
-
-					vm.profile = {
-						name: file.entry.name,
-						translations: translations
-					};
-
+			profileService.open()
+				.then(function (profile) {
+					vm.profile = profile;
 					vm.update();
 				});
+		}
+
+		function saveProfile() {
+			profileService.save(vm.profile);
 		}
 
 		function addMapRow() {

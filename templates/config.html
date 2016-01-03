@@ -19,8 +19,9 @@
 		Skip raws when copying
 	</label>
 	<label>
-		<button ng-click="vm.openProfile()"><i class="fa fa-language"></i></button>
+		<button ng-click="vm.openProfile()" title="Open Profile"><i class="fa fa-language"></i></button>
 		<span ng-show="vm.profile">{{vm.profile.name}}</span>
+		<button ng-click="vm.saveProfile()" title="Save Profile"><i class="fa fa-floppy-o"></i></button>
 	</label>
 	<div class="profile-edit-container" ng-show="vm.profile && vm.profile.translations">
 		<ul>

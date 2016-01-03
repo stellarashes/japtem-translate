@@ -44,14 +44,17 @@
 				return deferred.promise;
 			},
 
-			saveToFile: function (data) {
+			saveToFile: function (data, description, extensions, type) {
+				description = description || 'Text based files (*.json)';
+				extensions = extensions || ['json'];
+				type = type || 'application/json';
 				var deferred = $q.defer();
 				chrome.fileSystem.chooseEntry({
 						type: 'saveFile',
 						accepts: [
 							{
-								description: 'Text based files (*.json)',
-								extensions: ['json']
+								description: description,
+								extensions: extensions
 							}
 						]
 					},
@@ -64,7 +67,7 @@
 								deferred.resolve();
 							};
 
-							writer.write(new Blob([JSON.stringify(data)]), 'application/json');
+							writer.write(new Blob([data]), type);
 						});
 					});
 
