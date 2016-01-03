@@ -4,18 +4,16 @@
 	angular.module('translate.app')
 		.controller('japtemTranslateController', JaptemTranslateController);
 
-	JaptemTranslateController.$inject = ['ttsService', 'storageService', 'rawParsingService', 'rawRenderingService', 'phraseMappingService', 'clipboardService', '$timeout', 'maximizeElementService', '$window', 'saveLoadService'];
+	JaptemTranslateController.$inject = ['ttsService', 'storageService', 'rawParsingService', 'rawRenderingService', 'phraseMappingService', 'clipboardService', '$timeout', 'maximizeElementService', '$window', 'saveLoadService', 'keyBindService', '$scope'];
 
-	var scrollUp = 33, scrollDown = 34, enter = 13;
-
-	function JaptemTranslateController(ttsService, storageService, rawParsingService, rawRenderingService, phraseMappingService, clipboardService, $timeout, maximizeElementService, $window, saveLoadService) {
+	function JaptemTranslateController(ttsService, storageService, rawParsingService, rawRenderingService, phraseMappingService, clipboardService, $timeout, maximizeElementService, $window, saveLoadService, keyBindService, $scope) {
 		var vm = this;
 
 		init();
 
 		vm.lastSaved = Date.now();
 
-		vm.speak = function() {
+		vm.speak = function () {
 			ttsService.speak(vm.currentRaw());
 		};
 
@@ -30,17 +28,17 @@
 			vm.save();
 		}
 
-		vm.create = function() {
+		vm.create = function () {
 			onNewProject(vm.newData);
 			closeModal();
 		};
 
-		vm.saveToFile = function() {
+		vm.saveToFile = function () {
 			vm.save();
 			return saveLoadService.save(vm.data);
 		};
 
-		vm.save = function() {
+		vm.save = function () {
 			vm.lastSaved = Date.now();
 			saveCurrentTranslation();
 			storageService.set({
@@ -74,15 +72,15 @@
 			document.querySelector('#japtem-new-modal-container').close();
 		}
 
-		vm.pre = function() {
+		vm.pre = function () {
 			return rawRenderingService.getPre(vm.data, vm.cursor);
 		};
 
-		vm.post = function() {
+		vm.post = function () {
 			return rawRenderingService.getPost(vm.data, vm.cursor);
 		};
 
-		vm.currentRaw = function() {
+		vm.currentRaw = function () {
 			return getPhrase().phrase;
 		};
 
@@ -111,23 +109,43 @@
 			}
 		}
 
-		vm.currentKeyListener = function(event) {
-			if (event.keyCode === scrollUp || event.keyCode === scrollDown || event.keyCode === enter) {
-				event.preventDefault();
-				saveCurrentTranslation();
-
-				var delta = event.keyCode === scrollUp ? -1 : 1;
-				var target = vm.cursor + delta;
-				vm.cursor = ensureTargetRange(target);
-				update();
-
-				if (shouldAutoSaveAgain()) {
-					vm.save();
-				}
-			}
+		vm.currentKeyListener = function (event) {
+			keyBindService.triggerByKey(event);
 		};
 
-		vm.openFile = function() {
+		vm.changeLineEvent = function (eventName, event) {
+			event.preventDefault();
+			saveCurrentTranslation();
+
+			var delta = eventName === 'prevLine' ? -1 : 1;
+			var target = vm.cursor + delta;
+			vm.cursor = ensureTargetRange(target);
+			update();
+			autosave();
+		};
+
+		vm.goToUntranslated = function() {
+			for (var i = 0; i < vm.data.length; i++) {
+				if (vm.data[i].translation === '') {
+					vm.cursor = i;
+					update();
+					autosave();
+					return;
+				}
+			}
+			vm.cursor = vm.data.length - 1;
+			update();
+			autosave();
+		};
+
+		keyBindService.addKeyListener('prevLine', 'Previous Line', $scope, vm.changeLineEvent);
+		keyBindService.addKeyListener('nextLine', 'Next Line', $scope, vm.changeLineEvent);
+		keyBindService.addKeyListener('startTTS', 'Start TTS', $scope, vm.speak);
+		keyBindService.addKeyListener('stopTTS', 'Stop TTS', $scope, vm.stop);
+		keyBindService.addKeyListener('gotoUntrans', 'Next Untranslated', $scope, vm.goToUntranslated);
+
+
+		vm.openFile = function () {
 			saveLoadService.load()
 				.then(onNewProject);
 		};
@@ -137,7 +155,7 @@
 			getCurrentMappedRaw();
 			var element = document.querySelector('.pre-text');
 			if (element) {
-				$timeout(function() {
+				$timeout(function () {
 					element.scrollTop = element.scrollHeight;
 				});
 			}
@@ -156,13 +174,13 @@
 			}
 		}
 
-		function shouldAutoSaveAgain() {
-			return true;
+		function autosave() {
+			vm.save();
 		}
 
-		vm.copyToClipboard = function() {
+		vm.copyToClipboard = function () {
 			return rawRenderingService.getEntireOutput(vm.data)
-				.then(function(output) {
+				.then(function (output) {
 					clipboardService.copy(output);
 				});
 		}

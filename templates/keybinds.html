@@ -1,3 +1,10 @@
-<div class="japtem-keybind-container">
-	Test test
+<div class="japtem-keybind-container" ng-keydown="vm.keyEvent($event)">
+	<ul>
+		<li ng-repeat="(eventName, eventDisplayName) in vm.getBinds()">
+			<div class="row">
+				<span class="columns">{{ eventDisplayName }}</span>
+				<input type="text" ng-repeat="key in vm.getKeysByEvent(eventName) track by $index" class="columns keybind-input" data-event="{{eventName}}" data-index="{{$index}}" ng-value="key" />
+			</div>
+		</li>
+	</ul>
 </div>

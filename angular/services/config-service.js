@@ -30,7 +30,9 @@
 					} else {
 						options[key] = value;
 					}
-					return storageService.set(options);
+					return storageService.set({
+						config: options
+					});
 				});
 			},
 			getAll: function() {
@@ -45,9 +47,9 @@
 				return $q.resolve(options);
 			} else {
 				if (self.promise === null) {
-					self.promise = storageService.get(null)
+					self.promise = storageService.get('config')
 						.then(function (result) {
-							options = result;
+							options = result.config || {};
 							self.ready = true;
 						});
 					return self.promise;

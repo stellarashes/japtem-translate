@@ -1,4 +1,4 @@
-<div class="japtem-translate-container">
+<div class="japtem-translate-container" ng-keydown="vm.currentKeyListener($event)">
 	<header>
 		<a href="#config" ng-click="vm.save()"><i class="fa fa-bars"></i></a>
 	</header>
@@ -30,7 +30,7 @@
 			<textarea ng-bind="vm.currentMappedRaw" class="current-text" readonly></textarea>
 			<button ng-click="vm.speak()"><i class="fa fa-volume-up"></i></button>
 			<button ng-click="vm.stop()"><i class="fa fa-volume-off"></i></button>
-			<textarea ng-model="vm.currentTranslation" ng-keydown="vm.currentKeyListener($event)" id="current-row-translation" spellcheck="true"></textarea>
+			<textarea ng-model="vm.currentTranslation" id="current-row-translation" spellcheck="true"></textarea>
 		</div>
 		<textarea ng-bind="vm.post()" class="post-text" readonly></textarea>
 	</div>

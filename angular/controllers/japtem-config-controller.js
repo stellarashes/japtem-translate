@@ -25,6 +25,9 @@
 				vm.ttsRate = result.rate || 0.8;
 				vm.profile = result.profile;
 				vm.skipRaws = result.skipRaws;
+				if (!result || !Object.keys(result).length) {
+					update();
+				}
 			});
 
 		var element = document.querySelector('.profile-edit-container');

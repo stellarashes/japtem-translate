@@ -1,0 +1,20 @@
+.japtem-keybind-container {
+	padding: 16px;
+	ul {
+		margin: 0;
+		list-style: none;
+		li {
+			div.row {
+				span {
+					width: 50%;
+					line-height: 32px;
+				}
+				.keybind-input {
+					width: 25% !important;
+					height: 32px;
+				}
+			}
+		}
+
+	}
+}

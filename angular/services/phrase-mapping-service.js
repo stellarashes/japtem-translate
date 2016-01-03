@@ -14,12 +14,17 @@
 					.then(function (profile) {
 						if (profile && Array.isArray(profile.translations)) {
 							return profile.translations.reduce(function (prev, cur) {
-								return prev.replace(cur.key, cur.value);
+								var needle = new RegExp(escapeRegExp(cur.key), 'g');
+								return prev.replace(needle, cur.value);
 							}, phrase);
 						}
 						return phrase;
 					});
 			}
 		};
+	}
+
+	function escapeRegExp(str) {
+		return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
 	}
 })();
