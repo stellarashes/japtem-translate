@@ -24,7 +24,7 @@
 
 		function getElement(element) {
 			if (typeof(element) === 'string') {
-				return document.querySelector(element);
+				return document.querySelector(element) || {clientHeight: 0, style: {}};
 			} else {
 				return element;
 			}
