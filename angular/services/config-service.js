@@ -45,7 +45,7 @@
 				return $q.resolve(options);
 			} else {
 				if (self.promise === null) {
-					self.promise = storageService.get(['rate', 'lang', 'profile'])
+					self.promise = storageService.get(null)
 						.then(function (result) {
 							options = result;
 							self.ready = true;

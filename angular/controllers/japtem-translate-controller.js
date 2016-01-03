@@ -161,8 +161,10 @@
 		}
 
 		vm.copyToClipboard = function() {
-			var data = rawRenderingService.getSlice(vm.data, 0);
-			clipboardService.copy(data);
+			return rawRenderingService.getEntireOutput(vm.data)
+				.then(function(output) {
+					clipboardService.copy(output);
+				});
 		}
 
 	}

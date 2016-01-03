@@ -18,6 +18,10 @@
 		TTS Speed ({{ vm.ttsRate }})
 	</label>
 	<label>
+		<input type="checkbox" ng-model="vm.skipRaws" ng-change="vm.update()" />
+		Skip raws when copying
+	</label>
+	<label>
 		<button ng-click="vm.openProfile()"><i class="fa fa-language"></i></button>
 		<span ng-show="vm.profile">{{vm.profile.name}}</span>
 	</label>

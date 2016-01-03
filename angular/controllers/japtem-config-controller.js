@@ -19,19 +19,12 @@
 		ttsService.getVoices()
 			.then(processVoices);
 
-		configService.get('lang')
+		configService.get(['lang', 'rate', 'profile', 'skipRaws'])
 			.then(function (result) {
-				vm.selectedLang = result || 'ja-JP';
-			});
-
-		configService.get('rate')
-			.then(function (result) {
-				vm.ttsRate = result || 0.8;
-			});
-
-		configService.get('profile')
-			.then(function (result) {
-				vm.profile = result;
+				vm.selectedLang = result.lang || 'ja-JP';
+				vm.ttsRate = result.rate || 0.8;
+				vm.profile = result.profile;
+				vm.skipRaws = result.skipRaws;
 			});
 
 		var element = document.querySelector('.profile-edit-container');
@@ -51,7 +44,8 @@
 			configService.set({
 				lang: vm.selectedLang,
 				rate: parseFloat(vm.ttsRate),
-				profile: vm.profile
+				profile: vm.profile,
+				skipRaws: vm.skipRaws
 			});
 		}
 
