@@ -4,9 +4,13 @@
 	angular.module('translate.app')
 		.controller('japtemTranslateController', JaptemTranslateController);
 
-	JaptemTranslateController.$inject = ['ttsService', 'storageService', 'rawParsingService', 'rawRenderingService', 'phraseMappingService', 'clipboardService', '$timeout', 'maximizeElementService', '$window', 'saveLoadService', 'keyBindService', '$scope'];
+	JaptemTranslateController.$inject = ['ttsService', 'storageService', 'rawParsingService', 'rawRenderingService',
+		'phraseMappingService', 'clipboardService', '$timeout', 'maximizeElementService', '$window', 'saveLoadService',
+		'keyBindService', '$scope', 'statusService', 'configService'];
 
-	function JaptemTranslateController(ttsService, storageService, rawParsingService, rawRenderingService, phraseMappingService, clipboardService, $timeout, maximizeElementService, $window, saveLoadService, keyBindService, $scope) {
+	function JaptemTranslateController(ttsService, storageService, rawParsingService, rawRenderingService,
+	                                   phraseMappingService, clipboardService, $timeout, maximizeElementService, $window, saveLoadService,
+	                                   keyBindService, $scope, statusService, configService) {
 		var vm = this;
 
 		init();
@@ -50,7 +54,7 @@
 		vm.cancelCreate = closeModal;
 
 		function init() {
-			maximizeElementService.maximize($window, ['.pre-text', '.post-text'], '.japtem-translate-container', '.translation-texts-cursor-container', 50);
+			var resizeMethod = maximizeElementService.maximize($window, ['.pre-text', '.post-text'], '.japtem-translate-container', ['.translation-texts-cursor-container', '.translation-status'], 50);
 
 			storageService.get(['working', 'cursor'])
 				.then(function (data) {
@@ -61,6 +65,14 @@
 
 						update();
 					}
+				});
+
+			configService.get('statusBar')
+				.then(function (data) {
+					vm.showStatus = data;
+					$timeout(function() {
+						resizeMethod();
+					}, 100);
 				});
 		}
 
@@ -152,6 +164,7 @@
 
 		function update() {
 			vm.currentTranslation = getPhrase().translation;
+			vm.status = statusService.getStatusLine(vm.data);
 			getCurrentMappedRaw();
 			var element = document.querySelector('.pre-text');
 			if (element) {

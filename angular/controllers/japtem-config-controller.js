@@ -20,7 +20,7 @@
 		ttsService.getVoices()
 			.then(processVoices);
 
-		configService.get(['lang', 'rate', 'profile', 'skipRaws', 'alwaysOnTop'])
+		configService.getAll()
 			.then(function (result) {
 				vm.selectedLang = result.lang || 'ja-JP';
 				vm.ttsRate = result.rate || 0.8;
@@ -33,6 +33,7 @@
 					update();
 				}
 				vm.alwaysOnTop = result.alwaysOnTop;
+				vm.statusBar = result.statusBar;
 			});
 
 		var element = document.querySelector('.profile-edit-container');
@@ -54,7 +55,8 @@
 				rate: parseFloat(vm.ttsRate),
 				profile: vm.profile,
 				skipRaws: vm.skipRaws,
-				alwaysOnTop: vm.alwaysOnTop
+				alwaysOnTop: vm.alwaysOnTop,
+				statusBar: vm.statusBar
 			});
 		}
 

@@ -18,8 +18,10 @@
 				return init().then(function() {
 					if (Array.isArray(key)) {
 						return _.pick(options, key);
-					} else {
+					} else if (key) {
 						return options[key];
+					} else {
+						return options;
 					}
 				});
 			},

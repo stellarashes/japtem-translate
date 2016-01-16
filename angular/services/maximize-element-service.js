@@ -19,7 +19,8 @@
 
 				window.bind('resize', resize);
 				resize();
-			}
+				return resize;
+			},
 		};
 
 		function getElement(element) {

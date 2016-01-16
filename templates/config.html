@@ -23,6 +23,10 @@
 		Always on top
 	</label>
 	<label>
+		<input type="checkbox" ng-model="vm.statusBar" ng-change="vm.update()" />
+		Show status bar
+	</label>
+	<label>
 		<button ng-click="vm.openProfile()" title="Open Profile"><i class="fa fa-language"></i></button>
 		<span ng-show="vm.profile">{{vm.profile.name}}</span>
 		<button ng-click="vm.saveProfile()" title="Save Profile"><i class="fa fa-floppy-o"></i></button>

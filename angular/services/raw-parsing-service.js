@@ -50,6 +50,7 @@
 
 			phrases.push({
 				phrase: phrase,
+				length: phrase.length,
 				paragraphOffset: paragraphIndex,
 				translation: translation,
 				endsWithNewLine: endsWithNewLine

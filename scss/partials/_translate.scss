@@ -17,4 +17,18 @@
 			height: 75px;
 		}
 	}
+
+	.translation-status {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 35px;
+		vertical-align: middle;
+		z-index: 999;
+		background-color: #eee;
+		padding: 3px;
+		line-height: 35px;
+		font-size: 0.8em;
+	}
 }
