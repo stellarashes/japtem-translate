@@ -10,8 +10,10 @@
 		return {
 			getStatusLine: function (data) {
 				var count = getLineCounts(data);
-				var percent = count.line > 0 ? Math.round(count.completed / count.line * 100.) : 0;
-				return 'Completed lines ' + count.completed + '/' + count.line + ' (' + percent + '%) ' + count.words + ' words';
+				count.percentage = count.line > 0 ? Math.round(count.completed / count.line * 100.) : 0;
+				return {
+					count: count
+				};
 			}
 		};
 	}

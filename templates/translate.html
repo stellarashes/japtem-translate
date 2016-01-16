@@ -34,5 +34,12 @@
 		</div>
 		<textarea ng-bind="vm.post()" class="post-text" readonly></textarea>
 	</div>
-	<div class="translation-status" ng-show="vm.showStatus" ng-bind="vm.status"></div>
+	<div class="translation-status" ng-show="vm.showStatus">
+		<div class="left">
+			Completed Lines: {{vm.status.count.completed}}/{{vm.status.count.line}} ({{vm.status.count.percentage}}%)
+		</div>
+		<div class="right">
+			{{vm.status.count.words}} Words
+		</div>
+	</div>
 </div>
