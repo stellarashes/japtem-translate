@@ -20,7 +20,7 @@
 				window.bind('resize', resize);
 				resize();
 				return resize;
-			},
+			}
 		};
 
 		function getElement(element) {
@@ -35,9 +35,7 @@
 			if (Array.isArray(element)) {
 				var total = 0;
 				for (var i = 0; i < element.length; i++) {
-					var elementHeight = getElement(element[i]).offsetHeight;
-					console.log(element, elementHeight);
-					total += elementHeight;
+					total += getElement(element[i]).offsetHeight;
 				}
 
 				return total;

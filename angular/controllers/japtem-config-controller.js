@@ -50,8 +50,18 @@
 		}
 
 		function update() {
+			var voiceName = null;
+			for (var i = 0; i < vm.languages.length; i++) {
+				var obj = vm.languages[i];
+				if (obj.lang === vm.selectedLang) {
+					voiceName = obj.voiceName;
+					break;
+				}
+			}
+
 			configService.set({
 				lang: vm.selectedLang,
+				voiceName: voiceName || 'Google 日本語',
 				rate: parseFloat(vm.ttsRate),
 				profile: vm.profile,
 				skipRaws: vm.skipRaws,

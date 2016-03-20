@@ -4,7 +4,7 @@
 		<select ng-model="vm.selectedLang" ng-change="vm.update()">
 			<option
 					ng-repeat="lang in vm.languages"
-					value="{{lang.lang}}"
+					value="{{ lang.lang }}"
 			>
 				{{ lang.voiceName }}
 			</option>

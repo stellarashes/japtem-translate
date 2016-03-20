@@ -1,13 +1,12 @@
 module.exports = function(grunt) {
 	var sassPath = [
-		'components/foundation/scss',
+		'components/foundation/scss'
 	];
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		uglify: {
 			angular: {
 				options: {
-					mangle: false,
 					screwIE8: true,
 					sourceMap: true
 				},

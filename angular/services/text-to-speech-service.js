@@ -14,7 +14,7 @@
 		};
 
 		function speak(phrase) {
-			configService.get(['lang', 'rate']).then(function (options) {
+			configService.get(['lang', 'rate', 'voiceName']).then(function (options) {
 				phrase = phrase.replace(/[…]+/g, '.');
 				chrome.tts.speak(phrase, options);
 			});
