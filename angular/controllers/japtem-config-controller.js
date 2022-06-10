@@ -45,7 +45,7 @@
 			vm.languages = voices.filter(filter);
 
 			function filter(current) {
-				return current.hasOwnProperty('lang') && current.hasOwnProperty('voiceName') && current.hasOwnProperty('gender') && current.gender === 'female';
+				return current.hasOwnProperty('lang') && current.hasOwnProperty('voiceName');
 			}
 		}
 
