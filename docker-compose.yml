@@ -1,0 +1,7 @@
+services:
+  web:
+    build: .
+    volumes:
+      # make dist folder first
+      - ./dist:/data/dist
+      
