@@ -27,6 +27,7 @@
 		Show status bar
 	</label>
 	<label>
+		<button ng-click="vm.newProfile()" title="New Profile"><i class="fa fa-file"></i></button>
 		<button ng-click="vm.openProfile()" title="Open Profile"><i class="fa fa-language"></i></button>
 		<span ng-show="vm.profile">{{vm.profile.name}}</span>
 		<button ng-click="vm.saveProfile()" title="Save Profile"><i class="fa fa-floppy-o"></i></button>

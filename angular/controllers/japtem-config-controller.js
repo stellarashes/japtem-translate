@@ -11,6 +11,14 @@
 
 		vm.languages = [];
 		vm.update = update;
+		vm.newProfile = function () {
+			vm.profile = {
+				name: 'New',
+				translations: []
+			};
+
+			vm.update();
+		}
 		vm.openProfile = openProfile;
 		vm.saveProfile = saveProfile;
 		vm.profile = null;
